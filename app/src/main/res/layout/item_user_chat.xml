@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="6dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginTop="@dimen/bouble_chat_margintop">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <rafaxplayer.chatfriendly.RoundedImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/user"
+            android:scaleType="centerCrop"
+
+            android:id="@+id/imgUser"
+            android:layout_margin="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical|center_horizontal">
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textUserName"
+                android:textColor="@android:color/black"
+                android:textStyle="normal|italic" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textUserEmail"
+                android:textSize="@dimen/text_email_user"
+                android:textStyle="normal|italic"
+                android:layout_marginTop="@dimen/padding_item_chat" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_item_chat">
+
+                <TextView
+                    android:text="..."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textLastComment"
+                    android:textSize="@dimen/text_email_user"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:layout_marginTop="@dimen/padding_item_chat"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:text="..."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textTimeLastcomment"
+                    android:layout_weight="2"
+                    android:textAlignment="textEnd"
+                    android:textSize="@dimen/text_email_user"
+                    android:gravity="bottom"
+                    android:layout_gravity="bottom" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

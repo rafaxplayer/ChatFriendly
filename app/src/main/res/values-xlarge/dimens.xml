@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marigin_chat_text">25dp</dimen>
+    <dimen name="textmessage_chat">20sp</dimen>
+    <dimen name="texttime_chat">15sp</dimen>
+    <dimen name="bouble_chat_margintop">0dp</dimen>
+    <dimen name="text_email_user">12sp</dimen>
+</resources>

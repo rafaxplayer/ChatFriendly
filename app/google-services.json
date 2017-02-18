@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "270708467521",
+    "firebase_url": "https://chat-friendly-b866c.firebaseio.com",
+    "project_id": "chat-friendly-b866c",
+    "storage_bucket": "chat-friendly-b866c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270708467521:android:cc6118699d549873",
+        "android_client_info": {
+          "package_name": "rafaxplayer.chatfriendly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270708467521-skscrh41f9u9qi58mavkf0kh52ojr2g2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "rafaxplayer.chatfriendly",
+            "certificate_hash": "E706A8F8D2711D3AADB392A0AE34908375023AD8"
+          }
+        },
+        {
+          "client_id": "270708467521-bc6jpmhco4de3tpqk0kl16j9b5eff164.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArs6cQKQ0T_6qAcOj-G9qRQHRyy-6AXgg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270708467521-bc6jpmhco4de3tpqk0kl16j9b5eff164.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
