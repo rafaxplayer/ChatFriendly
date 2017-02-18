@@ -78,7 +78,8 @@
                     android:textAlignment="textEnd"
                     android:textSize="@dimen/text_email_user"
                     android:gravity="bottom"
-                    android:layout_gravity="bottom" />
+                    android:layout_gravity="bottom"
+                    android:textColor="@android:color/holo_blue_dark" />
             </LinearLayout>
 
         </LinearLayout>
