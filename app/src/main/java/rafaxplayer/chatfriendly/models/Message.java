@@ -13,19 +13,22 @@ public class Message {
     public String from;
     public String to;
     public String id;
+    public boolean look;
 
 
     public Message(){
 
     }
 
-    public Message(String email, String message, String timestamp, String from, String to, String id) {
+
+    public Message(String email, String message, String timestamp, String from, String to, String id, boolean look) {
         this.email = email;
         this.message = message;
         this.timestamp = timestamp;
         this.from = from;
         this.to = to;
         this.id=id;
+        this.look=look;
     }
 
     public String getEmail() {
@@ -75,4 +78,13 @@ public class Message {
     public void setId(String id) {
         this.id = id;
     }
+
+    public boolean isLook() {
+        return look;
+    }
+
+    public void setLook(boolean look) {
+        this.look = look;
+    }
+
 }

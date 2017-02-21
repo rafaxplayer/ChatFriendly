@@ -22,7 +22,6 @@ import rafaxplayer.chatfriendly.R;
 import rafaxplayer.chatfriendly.RoundedImageView;
 import rafaxplayer.chatfriendly.activities.ChatActivity;
 import rafaxplayer.chatfriendly.classes.GlobalUtils;
-import rafaxplayer.chatfriendly.models.Message;
 import rafaxplayer.chatfriendly.models.User;
 
 import static rafaxplayer.chatfriendly.Chat_Friendly.messagesRef;
@@ -55,19 +54,28 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(final UsersAdapter.ViewHolder holder, final int position) {
-        holder.name.setText(listUsers.get(position).name);
-        holder.email.setText(listUsers.get(position).email);
-        ValueEventListener list = messagesRef.orderByChild("from").equalTo(listUsers.get(position).uid)
+        String username=listUsers.get(position).name;
+        String email=listUsers.get(position).email;
+        holder.name.setText(username == null|| username.equals("No Set")? "Sin nombre":username );
+        holder.email.setText(email);
+        ValueEventListener list = messagesRef
         .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                int count=0;
                 for (DataSnapshot data:dataSnapshot.getChildren()){
-                    Message mes = data.getValue(Message.class);
-                    if(mes.getTo().equals(user.getUid()))
+                    String to = data.child("to").getValue(String.class);
+                    String from = data.child("from").getValue(String.class);
+                    if((to.equals(user.getUid())&& from.equals(listUsers.get(position).uid))||((from.equals(user.getUid())&& to.equals(listUsers.get(position).uid))))
+                        if(!data.child("look").getValue(Boolean.class)&&(to.equals(user.getUid())&& from.equals(listUsers.get(position).uid))){
+                            count++;
+                        }
 
-                        holder.lastComment.setText(mes.getMessage());
-                        holder.timeLastComment.setText(GlobalUtils.getDate(Long.valueOf(mes.getTimestamp())));
+                        holder.lastComment.setText( data.child("message").getValue(String.class));
+                        holder.timeLastComment.setText(GlobalUtils.getDate(Long.valueOf(data.child("timestamp").getValue(String.class))));
+                        int visibility= count>0?View.VISIBLE:View.GONE;
+                        holder.badge.setText(String.valueOf(count));
+                        holder.badge.setVisibility(visibility);
                 }
 
 
@@ -98,6 +106,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
         public TextView email;
         public TextView lastComment;
         public TextView timeLastComment;
+        public TextView badge;
         public RoundedImageView img;
 
 
@@ -107,6 +116,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
             email = (TextView)v.findViewById(R.id.textUserEmail);
             lastComment = (TextView)v.findViewById(R.id.textLastComment);
             timeLastComment = (TextView)v.findViewById(R.id.textTimeLastcomment);
+            badge=(TextView) v.findViewById(R.id.textBadge);
             img=(RoundedImageView)v.findViewById(R.id.imgUser);
             v.setOnClickListener(this);
         }

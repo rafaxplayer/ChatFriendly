@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/padding_buttons_vertical"
@@ -40,15 +41,32 @@
                 android:text="TextView"
                 android:textSize="@dimen/textmessage_chat" />
 
-            <TextView
-                android:id="@+id/textTime"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_buttons_orizontal"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="@dimen/texttime_chat" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="@dimen/texttime_chat"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/padding_item_chat" />
+
+                <ImageView
+                    app:srcCompat="@drawable/look_false"
+                    android:id="@+id/imageLook"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom"
+                    android:layout_width="@dimen/iclook_size"
+                    android:layout_height="@dimen/iclook_size" />
+            </LinearLayout>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

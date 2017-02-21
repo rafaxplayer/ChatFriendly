@@ -30,7 +30,7 @@ public class GlobalUtils {
         try{
 
             Date netDate = (new Date(timeStamp*1000));
-            String format="dd/MM/yyyy hh:mm a";
+            String format="dd/MM/yyyy";
             if(DateUtils.isToday(timeStamp*1000)){
                 format="hh:mm:ss a";
 

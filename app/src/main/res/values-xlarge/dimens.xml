@@ -5,4 +5,6 @@
     <dimen name="texttime_chat">15sp</dimen>
     <dimen name="bouble_chat_margintop">0dp</dimen>
     <dimen name="text_email_user">12sp</dimen>
+    <dimen name="iclook_size">40dp</dimen>
+    <dimen name="badge_text_size">12sp</dimen>
 </resources>

@@ -33,7 +33,7 @@ import static rafaxplayer.chatfriendly.Chat_Friendly.messagesRef;
 import static rafaxplayer.chatfriendly.Chat_Friendly.usersRef;
 
 public class UsersActivity extends AppCompatActivity {
-    private static String TAG="UsersActivity";
+    private static String TAG = "UsersActivity";
     private FirebaseAuth.AuthStateListener mAuthListener;
     private RoundedImageView avatar;
     private TextView useremail;
@@ -42,22 +42,29 @@ public class UsersActivity extends AppCompatActivity {
     private RecyclerView usersList;
     private ValueEventListener userListener;
     private UsersAdapter usersAdapter;
+    private String currentUserId;
+    private List<User> listUsers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-        profile=(LinearLayout) findViewById(R.id.profile);
-        avatar=(RoundedImageView) findViewById(R.id.avatar);
-        username=(TextView) findViewById(R.id.textName);
-        useremail=(TextView) findViewById(R.id.textEmail);
+
+        profile = (LinearLayout) findViewById(R.id.profile);
+        avatar = (RoundedImageView) findViewById(R.id.avatar);
+        username = (TextView) findViewById(R.id.textName);
+        useremail = (TextView) findViewById(R.id.textEmail);
         usersList = (RecyclerView) findViewById(R.id.chatlist);
         usersList.setItemAnimator(new DefaultItemAnimator());
         usersList.setLayoutManager(new LinearLayoutManager(this));
+        listUsers = new ArrayList<>();
+        usersAdapter = new UsersAdapter(UsersActivity.this, listUsers);
+        usersList.setAdapter(usersAdapter);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    currentUserId = user.getUid();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     updateProfile(user);
                 } else {
@@ -73,28 +80,24 @@ public class UsersActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int lastFirstVisiblePosition = ((LinearLayoutManager) usersList.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-                List<User> listUsers = new ArrayList<>();
-                String currentUserId = mAuth.getCurrentUser().getUid();
+
+                listUsers.removeAll(listUsers);
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
 
                     User user = data.getValue(User.class);
-                    if(!data.getKey().equals(currentUserId)){
+                    if (!data.getKey().equals(currentUserId)) {
 
                         listUsers.add(user);
                     }
 
                 }
-                if(listUsers.size() > 0)
-                    usersAdapter = new UsersAdapter(UsersActivity.this, listUsers);
-                    usersList.setAdapter(usersAdapter);
-
-
+                usersAdapter.notifyDataSetChanged();
                 usersList.getLayoutManager().scrollToPosition(lastFirstVisiblePosition);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.e(TAG + ":Error ", databaseError.getMessage());
             }
         };
         profile.setOnClickListener(new View.OnClickListener() {
@@ -119,23 +122,23 @@ public class UsersActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-        if(userListener!=null){
+        if (userListener != null) {
             usersRef.removeEventListener(userListener);
         }
         // remove listeners of adaptaer
-        List<ValueEventListener> list =((UsersAdapter)usersList.getAdapter()).getListeners();
-        if(list.size()>0){
-            for(ValueEventListener listener:list){
+        List<ValueEventListener> list = ((UsersAdapter) usersList.getAdapter()).getListeners();
+        if (list.size() > 0) {
+            for (ValueEventListener listener : list) {
                 messagesRef.removeEventListener(listener);
             }
         }
     }
 
-    private void updateProfile(FirebaseUser user){
-        if(user.getPhotoUrl()!=null) {
+    private void updateProfile(FirebaseUser user) {
+        if (user.getPhotoUrl() != null) {
             Picasso.with(this).load(user.getPhotoUrl()).into(avatar);
         }
-        username.setText(TextUtils.isEmpty(user.getDisplayName())?"Bienvenido":user.getDisplayName());
+        username.setText(TextUtils.isEmpty(user.getDisplayName()) ? "Bienvenido" : user.getDisplayName());
         useremail.setText(user.getEmail());
 
     }

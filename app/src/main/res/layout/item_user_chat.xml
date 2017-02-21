@@ -28,21 +28,38 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
             android:layout_gravity="center_vertical|center_horizontal">
 
-            <TextView
-                android:text="TextView"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textUserName"
-                android:textColor="@android:color/black"
-                android:textStyle="normal|italic" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textUserName"
+                    android:textColor="@android:color/black"
+                    android:textStyle="normal|italic"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textBadge"
+                    android:elevation="1dp"
+                    android:background="@drawable/badge"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/badge_text_size" />
+            </LinearLayout>
 
             <TextView
-                android:text="TextView"
+                android:text="email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textUserEmail"
@@ -67,7 +84,7 @@
                     android:layout_marginTop="@dimen/padding_item_chat"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
                 <TextView
                     android:text="..."
@@ -77,8 +94,6 @@
                     android:layout_weight="2"
                     android:textAlignment="textEnd"
                     android:textSize="@dimen/text_email_user"
-                    android:gravity="bottom"
-                    android:layout_gravity="bottom"
                     android:textColor="@android:color/holo_blue_dark" />
             </LinearLayout>
 

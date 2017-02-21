@@ -54,6 +54,22 @@
             android:paddingTop="@dimen/padding_buttons_vertical"
             android:text="SigIn" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="@dimen/padding_buttons_vertical"
+            android:paddingLeft="@dimen/padding_buttons_orizontal"
+            android:paddingRight="@dimen/padding_buttons_orizontal"
+            android:paddingTop="@dimen/padding_buttons_vertical" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sigin_google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp" />
 
 
     </LinearLayout>
