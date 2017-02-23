@@ -19,6 +19,7 @@ public class GlobalUtils {
     public static FirebaseUser getCurrentUser(){
         return mAuth.getCurrentUser();
     }
+
     public static String getTimeStamp() {
         Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
