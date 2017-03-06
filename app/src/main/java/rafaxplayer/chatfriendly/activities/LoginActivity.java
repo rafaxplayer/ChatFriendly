@@ -1,11 +1,14 @@
 package rafaxplayer.chatfriendly.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,13 +37,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import rafaxplayer.chatfriendly.R;
 
-import static rafaxplayer.chatfriendly.Chat_Friendly.getCurrentUser;
 import static rafaxplayer.chatfriendly.Chat_Friendly.mAuth;
 import static rafaxplayer.chatfriendly.Chat_Friendly.usersRef;
+import static rafaxplayer.chatfriendly.classes.GlobalUtils.getCurrentUser;
 
 public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
@@ -57,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        hash();
         logOutFacebook();
         buttonSigin=(Button)findViewById(R.id.buttonSigIn);
         password=(EditText) findViewById(R.id.editPassword);
@@ -247,5 +252,23 @@ public class LoginActivity extends AppCompatActivity {
     private void logOutFacebook(){
 
         LoginManager.getInstance().logOut();
+    }
+
+    private void hash(){
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "rafaxplayer.chatfriendly",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("NameNotFoundException", e.getMessage());
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("NoSuchException", e.getMessage());
+        }
     }
 }

@@ -4,7 +4,6 @@ package rafaxplayer.chatfriendly;
 import android.app.Application;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,7 +27,5 @@ public class Chat_Friendly extends Application {
 
     }
 
-    public static FirebaseUser getCurrentUser(){
-        return mAuth.getCurrentUser();
-    }
+
 }

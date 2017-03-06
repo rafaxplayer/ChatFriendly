@@ -20,10 +20,9 @@ public class GlobalUtils {
         return mAuth.getCurrentUser();
     }
 
-    public static String getTimeStamp() {
+    public static Long getTimeStamp() {
         Long tsLong = System.currentTimeMillis() / 1000;
-        String ts = tsLong.toString();
-        return ts;
+        return tsLong;
     }
 
     public static String getDate(long timeStamp){

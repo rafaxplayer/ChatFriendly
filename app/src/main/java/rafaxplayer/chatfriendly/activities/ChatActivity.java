@@ -34,6 +34,7 @@ import rafaxplayer.chatfriendly.models.User;
 
 import static rafaxplayer.chatfriendly.Chat_Friendly.messagesRef;
 import static rafaxplayer.chatfriendly.Chat_Friendly.usersRef;
+import static rafaxplayer.chatfriendly.classes.GlobalUtils.getCurrentUser;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -70,18 +71,17 @@ public class ChatActivity extends AppCompatActivity {
         sendMessage = (ImageButton) findViewById(R.id.sendMesage);
         chatList.setItemAnimator(new DefaultItemAnimator());
         chatList.setLayoutManager(new LinearLayoutManager(this));
-        currentuserID = GlobalUtils.getCurrentUser().getUid();
+
         listMessages = new ArrayList<>();
         chatadapter = new ChatAdapter(ChatActivity.this, listMessages);
         chatList.setAdapter(chatadapter);
         chatListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
+                listMessages.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Message message = data.getValue(Message.class);
-                    if ((message.getTo().equals(remoteUserID) && message.getFrom().equals(currentuserID)) || (message.getTo().equals(currentuserID) && message.getFrom().equals(remoteUserID))) {
+                    if ((message.getFrom().equals(currentuserID)&& message.getTo().equals(remoteUserID)) || (message.getFrom().equals(remoteUserID) && message.getTo().equals(currentuserID))) {
                         listMessages.add(message);
                     }
 
@@ -135,7 +135,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
@@ -148,12 +147,15 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         Bundle bund = getIntent().getExtras();
+
         if (bund != null) {
             this.remoteUserID = bund.getString("to");
             setTolbarUserInfo(remoteUserID);
             setLookAll();
         }
+        currentuserID = GlobalUtils.getCurrentUser().getUid();
     }
 
     @Override
@@ -168,10 +170,11 @@ public class ChatActivity extends AppCompatActivity {
 
         String key = messagesRef.push().getKey();
         Message mes = new Message();
-        mes.setEmail(currentuserID);
+        mes.setAvatar(getCurrentUser().getPhotoUrl() == null ? "" : getCurrentUser().getPhotoUrl().toString());
+        mes.setEmail(GlobalUtils.getCurrentUser().getEmail());
         mes.setId(key);
         mes.setMessage(editMessage.getText().toString());
-        mes.setFrom(GlobalUtils.getCurrentUser().getUid());
+        mes.setFrom(currentuserID);
         mes.setTo(remoteUserID);
         mes.setTimestamp(GlobalUtils.getTimeStamp());
         mes.setLook(false);

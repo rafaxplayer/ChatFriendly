@@ -26,6 +26,7 @@ import java.util.List;
 import rafaxplayer.chatfriendly.R;
 import rafaxplayer.chatfriendly.RoundedImageView;
 import rafaxplayer.chatfriendly.adapters.UsersAdapter;
+import rafaxplayer.chatfriendly.classes.GlobalUtils;
 import rafaxplayer.chatfriendly.models.User;
 
 import static rafaxplayer.chatfriendly.Chat_Friendly.mAuth;
@@ -103,7 +104,10 @@ public class UsersActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                if(mAuth.getCurrentUser()!=null) {
+                    usersRef.child(mAuth.getCurrentUser().getUid()).removeValue();
+                    mAuth.signOut();
+                }
             }
         });
 
@@ -113,7 +117,8 @@ public class UsersActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        usersRef.addValueEventListener(userListener);
+        if(GlobalUtils.getCurrentUser()!=null)
+            usersRef.addValueEventListener(userListener);
     }
 
     @Override

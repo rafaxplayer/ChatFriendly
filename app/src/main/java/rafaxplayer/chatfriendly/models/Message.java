@@ -7,9 +7,10 @@ import com.google.firebase.database.IgnoreExtraProperties;
  */
 @IgnoreExtraProperties
 public class Message {
+    public String avatar;
     public String email;
     public String message;
-    public String timestamp;
+    public Long timestamp;
     public String from;
     public String to;
     public String id;
@@ -21,7 +22,8 @@ public class Message {
     }
 
 
-    public Message(String email, String message, String timestamp, String from, String to, String id, boolean look) {
+
+    public Message(String avatar, String email, String message, Long timestamp, String from, String to, String id, boolean look) {
         this.email = email;
         this.message = message;
         this.timestamp = timestamp;
@@ -29,6 +31,14 @@ public class Message {
         this.to = to;
         this.id=id;
         this.look=look;
+        this.avatar=avatar;
+    }
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {
@@ -47,11 +57,11 @@ public class Message {
         this.message = message;
     }
 
-    public String getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

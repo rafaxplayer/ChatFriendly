@@ -54,30 +54,29 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(final UsersAdapter.ViewHolder holder, final int position) {
-        String username=listUsers.get(position).name;
-        String email=listUsers.get(position).email;
+        String username = listUsers.get(position).name;
+        String email = listUsers.get(position).email;
         holder.name.setText(username == null|| username.equals("No Set")? "Sin nombre":username );
         holder.email.setText(email);
         ValueEventListener list = messagesRef
         .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int count=0;
+                int count = 0;
                 for (DataSnapshot data:dataSnapshot.getChildren()){
                     String to = data.child("to").getValue(String.class);
                     String from = data.child("from").getValue(String.class);
-                    if((to.equals(user.getUid())&& from.equals(listUsers.get(position).uid))||((from.equals(user.getUid())&& to.equals(listUsers.get(position).uid))))
-                        if(!data.child("look").getValue(Boolean.class)&&(to.equals(user.getUid())&& from.equals(listUsers.get(position).uid))){
+                    if((from.equals(listUsers.get(position).uid)&& to.equals(user.getUid()))||((from.equals(user.getUid())&& to.equals(listUsers.get(position).uid)))) {
+                        if (!data.child("look").getValue(Boolean.class) && (to.equals(user.getUid()) && from.equals(listUsers.get(position).uid))) {
                             count++;
                         }
-
-                        holder.lastComment.setText( data.child("message").getValue(String.class));
-                        holder.timeLastComment.setText(GlobalUtils.getDate(Long.valueOf(data.child("timestamp").getValue(String.class))));
-                        int visibility= count>0?View.VISIBLE:View.GONE;
-                        holder.badge.setText(String.valueOf(count));
-                        holder.badge.setVisibility(visibility);
+                        holder.lastComment.setText(data.child("message").getValue(String.class));
+                        holder.timeLastComment.setText(GlobalUtils.getDate(data.child("timestamp").getValue(Long.class)));
+                    }
                 }
-
+                int visibility = count > 0 ? View.VISIBLE : View.GONE;
+                holder.badge.setVisibility(visibility);
+                holder.badge.setText(String.valueOf(count));
 
             }
 
